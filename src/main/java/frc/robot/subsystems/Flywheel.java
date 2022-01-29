@@ -13,10 +13,10 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Config;
 
-public class Flywheel extends SubsystemBase 
-{
+public class Flywheel extends SubsystemBase implements Loggable {
   private double gearRatio = 1;
   private CANSparkMax neo;
   private TalonSRX cims;
@@ -80,24 +80,29 @@ public class Flywheel extends SubsystemBase
 
   public void setSpeedPID(int setpoint)
   {
-    if (!running) {
-      setpoint = 0;
-    }
+    setpoint = 0;
     rpmGoal = setpoint;
     setMotor(rpmGoal);
   }
 
   @Config
-  private void setMotor(int demand)
+  public void setMotor(int demand)
   {
+    //demand = 1000;
     pid.setReference(-demand, ControlType.kVelocity);
     if (demand < 0.05) {
       cims.set(ControlMode.PercentOutput, 0);
     }
     else {
-      cims.set(ControlMode.PercentOutput, 1);
+      cims.set(ControlMode.PercentOutput, 0.1);
     }
     
+  }
+
+  @Config
+  public void setPercent(double percent) {
+    pid.setReference(-percent, ControlType.kDutyCycle);
+    cims.set(ControlMode.PercentOutput, 0.5);
   }
 
   @Config.ToggleButton

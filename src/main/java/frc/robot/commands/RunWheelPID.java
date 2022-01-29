@@ -5,11 +5,12 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Flywheel;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Config;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class RunWheelPID extends CommandBase {
+public class RunWheelPID extends CommandBase implements Loggable {
   private final Flywheel wheel;
   private int rpmSetpoint;
   @Config(name = "P")
@@ -37,6 +38,7 @@ public class RunWheelPID extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("COMMAND STARTED");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.RunWheelPID;
 import frc.robot.subsystems.Flywheel;
+import io.github.oblarg.oblog.Logger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,6 +29,7 @@ public class RobotContainer {
   private final XboxController control = new XboxController(0);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    Logger.configureLoggingAndConfig(this, false);
     // Configure the button bindings
     configureButtonBindings();
   }
